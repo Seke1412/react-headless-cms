@@ -1,0 +1,55 @@
+body {
+  color: var(--text-color);
+  overflow-x: hidden;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  line-height: 1.56;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+button, input, textarea, select {
+  outline: none;
+  background: transparent;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+select::-ms-expand {
+  display: none;
+}
+input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color: #A5A5A5;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #A5A5A5;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #A5A5A5;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #A5A5A5;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #A5A5A5;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+  color: #A5A5A5;
+}
+

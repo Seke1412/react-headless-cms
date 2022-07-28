@@ -1,0 +1,54 @@
+:root {
+  --primary: #05445E;
+  --primary-variant-1: #189AB4;
+  --primary-variant-2: #75E6DA;
+  --primary-variant-3: #D4F1F4;
+
+  --text-color: #333;
+
+  --full-hd: 1920px;
+  --mac-16inch: 1660px;
+  --mac-14inch: 1440px;
+  --mac-13inch: 1366px;
+  --laptop-smallest: 1280px;
+  --desktop-smallest: 1024px;
+  --responsive-point: 960px;
+  --tablet-ipad: 768px;
+  --double-smallest: 640px;
+  --phablet: 426px;
+  --phone: 375px;
+  --smallest: 320px;
+
+  --border-radius: 4px;
+  --max-mobile-width: 360px;
+
+  --base-space: 4px;
+  --space-0: 0px;
+  --space-1: calc(var(--base-space) * 1);
+  --space-2: calc(var(--base-space) * 2);
+  --space-3: calc(var(--base-space) * 3);
+  --space-4: calc(var(--base-space) * 4);
+  --space-5: calc(var(--base-space) * 5);
+  --space-6: calc(var(--base-space) * 6);
+  --space-7: calc(var(--base-space) * 7);
+  --space-8: calc(var(--base-space) * 8);
+  --space-9: calc(var(--base-space) * 9);
+  --space-10: calc(var(--base-space) * 10);
+  --space-11: calc(var(--base-space) * 11);
+  --space-12: calc(var(--base-space) * 12);
+  --space-14: calc(var(--base-space) * 14);
+  --space-15: calc(var(--base-space) * 15);
+  --space-16: calc(var(--base-space) * 16);
+  --space-17: calc(var(--base-space) * 17);
+  --space-18: calc(var(--base-space) * 18);
+  --space-20: calc(var(--base-space) * 20);
+  --space-28: calc(var(--base-space) * 28);
+  --space-30: calc(var(--base-space) * 30);
+  --space-40: calc(var(--base-space) * 40);
+  --space-44: calc(var(--base-space) * 44);
+  --space-55: calc(var(--base-space) * 55);
+  --space-65: calc(var(--base-space) * 65);
+  --space-72: calc(var(--base-space) * 72);
+  --space-156: calc(var(--base-space) * 156);
+  --space-180: calc(var(--base-space) * 180);
+}
