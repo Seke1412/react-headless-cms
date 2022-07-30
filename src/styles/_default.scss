@@ -1,3 +1,58 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+}
+
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+/*#region CSS reset for fieldset */
+fieldset {
+  border: 0;
+  padding: 0.01em 0 0 0;
+  margin: 0;
+  min-width: 0;
+}
+fieldset legend {
+  padding: 0;
+  display: table;
+}
+body:not(:-moz-handler-blocked) fieldset {
+  display: table-cell;
+}
+/*#endregion*/
+
+a {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+// reset default state of summary tag
+summary {
+  list-style: none;
+
+  &::marker,
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
 body {
   color: var(--text-color);
   overflow-x: hidden;
