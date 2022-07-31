@@ -16,7 +16,7 @@ const Body = styled.section.attrs(() => ({
   min-height: calc(100vh - var(--space-8));
   flex: auto;
   flex-direction: column;
-  background-color: #eee;
+  background-color: white;
   justify-content: space-between;
   padding: var(--space-4) var(--space-6);
 `

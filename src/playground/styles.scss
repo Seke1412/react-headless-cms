@@ -54,7 +54,7 @@
 }
 
 .secondary {
-  background-color: #eee;
+  background-color: var(--background-color);
   color: var(--secondary);
 }
 .multiTags {
@@ -67,6 +67,6 @@ tbody tr {
 
 tbody tr:hover {
   transition: background-color 0.3s ease-out;
-  background-color: #eee;
+  background-color: var(--background-color);
   cursor: pointer;
 }

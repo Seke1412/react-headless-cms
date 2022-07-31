@@ -4,16 +4,17 @@ import Input from './components/input'
 import TextArea from './components/textarea'
 import Table from './components/table'
 import Pagination from './components/pagination'
+import Tabs from './components/tabs'
 
 import './styles.scss'
+
 const SupportedComponent = [
   'pagination',
   'table',
   'input',
   'textarea',
+  'tabs'
 ]
-
-
 
 const Playground = () => {
   const onSearch = (value) => {
@@ -26,6 +27,8 @@ const Playground = () => {
         options={SupportedComponent}
         onSearchResult={onSearch}
       />
+      <Tabs id="tabs" />
+      <br />
       <Pagination id="pagination" />
       <br />
       <Table id="table" />

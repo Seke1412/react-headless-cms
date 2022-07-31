@@ -40,7 +40,7 @@ const StyledInput = styled.input.attrs(({className}) => ({
 
   &:hover, &:visited, &:focus, &.haveValue {
     transition: border-color 0.3s ease-out;
-    border-color: var(--primary-variant-2);
+    border-color: var(--primary);
   }
 
   ${({hasIcon, iconPosition}) => hasIcon && iconPosition === 'left' &&

@@ -1,5 +1,9 @@
 import React, {useState} from 'react'
-import { Nav } from './views'
+
+import LogoSvg from '../../assets/logo.svg'
+import LogoSmallSvg from '../../assets/logo-small.svg'
+
+import { Nav, Logo } from './views'
 
 const NavBar = () => {
   const [toggle, setToogle] = useState(true)
@@ -9,7 +13,18 @@ const NavBar = () => {
       expandCollapse={toggle}
       onClick={() => {setToogle(state => !state)}}
     >
-      this is nav bar 
+      {toggle
+        ?
+        <Logo
+          src={LogoSvg}
+          alt='Pelago'
+        />
+        :
+        <Logo
+          src={LogoSmallSvg}
+          alt='Pelago'
+        />
+      }
     </Nav>
   )
 }

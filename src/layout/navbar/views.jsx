@@ -17,10 +17,25 @@ const Nav = styled.nav.attrs(() => ({
 
   width: auto;
   background-color: var(--primary);
-  color: white;
+  color: var(--text-color-light);
   padding: var(--space-4) var(--space-6);
+`
+
+const Logo = styled.img.attrs(() => ({
+  className: 'logo'
+}))`
+  width: 80%;
+  height: auto;
+
+  margin: 0px;
+  padding: 0px;
+
+  display: flex;
+  align-self: flex-start;
+  margin: 0 auto;
 `
 
 export {
   Nav,
+  Logo,
 }
