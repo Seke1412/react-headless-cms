@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 
 const StyledPagination = styled.div.attrs(({className}) => ({
   className: `pagination ${className ?? ''}`
@@ -15,6 +15,8 @@ const StyledPagination = styled.div.attrs(({className}) => ({
   ${({align}) => align === 'left' && 'justify-content: flex-start;'};
   ${({align}) => align === 'right' && 'justify-content: flex-end;'};
   ${({align}) => align === 'center' && 'justify-content: center;'};
+
+  ${({customStyle}) => customStyle && css(customStyle)};
 `
 
 export {

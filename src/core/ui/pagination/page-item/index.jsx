@@ -23,8 +23,8 @@ const PageItem = ({
 
 PageItem.propTypes = {
   onClick: func,
-  label: string.required,
-  isActive: bool.required,
+  label: string.isRequired,
+  isActive: bool.isRequired,
 }
 
 PageItem.defaultProps = {

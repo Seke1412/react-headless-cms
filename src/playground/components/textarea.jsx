@@ -1,36 +1,38 @@
 import React, {useState, memo, useCallback} from 'react'
 import { string } from 'prop-types'
-import Input from '../../core/ui/input'
-import {Apple} from '../../svg'
+import TextArea from '../../core/ui/textarea'
 
 import { Code, CodeTitle } from './views'
 
-const InputWrapper = ({id}) => {
-  const [inputValue, setInputValue] = useState('')
+const TAWrapper = ({id}) => {
+  const [textareaValue, setTextAreaValue] = useState('')
   const [toggleCode, setToggleCode] = useState(false)
 
   const onChangeCb = useCallback((e) => {
-    setInputValue(e.target.value)
-  }, [setInputValue])
+    setTextAreaValue(e.target.value)
+  }, [setTextAreaValue])
 
   return (
     <div id={id}>
-      <h2>Input</h2>
+      <h2>TextArea</h2>
       <p>
         <b>Props:</b> <br />
+        <b><i>value</i></b>: string *(<i>Because this is a controlled textarea, so need value to pass in</i>)<br />
+        allowResize: bool <br />
         placeholder: string <br />
-        value: string *(<i>Because this is a controlled input, so need value to pass in</i>)<br />
         onFocus: func<br />
         onBlur: func<br />
         onChange: func<br />
+        onKeyUp: func<br />
+        dataTest: string<br />
+        customStyle: object<br />
         <br/>
       </p>
-      <Input
+      <TextArea
         placeholder="Please enter text here"
-        value={inputValue}
+        allowResize
+        value={textareaValue}
         onChange={onChangeCb}
-        iconPosition="left"
-        icon={Apple}
       />
       <br/>
       <CodeTitle
@@ -40,7 +42,10 @@ const InputWrapper = ({id}) => {
         Code
       </CodeTitle>
       <Code toggleCode={toggleCode}>
-        &lt;Input <br />
+        import Apple from &quot;svg/apple.tsx&quot; <br />
+        <br />
+        &lt;TextArea <br />
+        &nbsp;&nbsp;allowResize=&quot;true&quot;<br />
         &nbsp;&nbsp;placeholder=&quot;Please enter text here&quot;<br />
         &nbsp;&nbsp;value=[return value from onChange]<br />
         &nbsp;&nbsp;onChange=[func]<br />
@@ -52,8 +57,8 @@ const InputWrapper = ({id}) => {
   )
 }
 
-InputWrapper.propTypes = {
+TAWrapper.propTypes = {
   id: string,
 }
 
-export default memo(InputWrapper)
+export default memo(TAWrapper)

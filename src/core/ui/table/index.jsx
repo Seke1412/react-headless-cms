@@ -7,6 +7,7 @@ const Table = ({
   columns, dataSource,
   showTableBorder, showRowBorder,
   onRowClick,
+  customStyle
 }) => {
   const renderData = () => {
     const header = []
@@ -62,6 +63,7 @@ const Table = ({
   return (
     <StyledTable
       showBorder={showTableBorder}
+      customStyle={customStyle}
     >
       {renderData()}
     </StyledTable>
@@ -69,11 +71,12 @@ const Table = ({
 }
 
 Table.propTypes = {
-  columns: arrayOf(object).required,
+  columns: arrayOf(object).isRequired,
   dataSource: arrayOf(object),
   showTableBorder: bool,
   showRowBorder: bool,
   onRowClick: func,
+  customStyle: object,
 }
 
 Table.defaultProps = {
@@ -81,6 +84,7 @@ Table.defaultProps = {
   showTableBorder: false,
   showRowBorder: true,
   onRowClick: noop,
+  customStyle: null,
 }
 
 export default Table

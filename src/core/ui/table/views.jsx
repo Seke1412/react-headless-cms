@@ -8,6 +8,8 @@ const StyledTable = styled.table.attrs(({className}) => ({
   border-collapse: collapse;
 
   ${({showBorder}) => showBorder && 'border: 1px solid var(--text-color);'}
+
+  ${({customStyle}) => customStyle && css(customStyle)};
 `
 
 const THead = styled.thead.attrs(({className}) => ({

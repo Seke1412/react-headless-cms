@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 
 const IconWrapper = styled.span.attrs(({className}) => ({
   className: `icon-wrapper ${className ?? className}`
@@ -12,7 +12,7 @@ const IconWrapper = styled.span.attrs(({className}) => ({
   ({iconPosition}) => iconPosition === 'right'
     ? 'left: calc(var(--space-2) / 2);'
     : 'right: calc(var(--space-2) / 2);'
-  }
+  };
 `
 
 const InputWrapper = styled.div.attrs(({className}) => ({
@@ -21,6 +21,8 @@ const InputWrapper = styled.div.attrs(({className}) => ({
   position: relative;
   width: var(--max-mobile-width);
   height: 40px;
+
+  ${({customStyle}) => customStyle && css(customStyle)};
 `
 
 const StyledInput = styled.input.attrs(({className}) => ({

@@ -81,8 +81,8 @@ const PageRange = ({
 PageRange.propTypes = {
   onItemClick: func,
   numPageView: number,
-  totalPage: number.required,
-  currentPage: number.required,
+  totalPage: number.isRequired,
+  currentPage: number.isRequired,
 }
 
 PageRange.defaultProps = {

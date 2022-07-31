@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Playground from './playground'
 
 import Home from './pages/home'
+import Sample from './pages/sample'
 import NotFound from './pages/404'
 
 import './styles/index.scss'
@@ -21,6 +22,10 @@ root.render(
           <Route
             index
             element={<Home />}
+          />
+          <Route
+            path="sample"
+            element={<Sample />}
           />
           <Route
             path="playground"

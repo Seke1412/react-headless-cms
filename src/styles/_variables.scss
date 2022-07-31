@@ -6,6 +6,8 @@
 
   --text-color: #333;
 
+  --disable-color: #ccc;
+
   --full-hd: 1920px;
   --mac-16inch: 1660px;
   --mac-14inch: 1440px;
@@ -20,7 +22,14 @@
   --smallest: 320px;
 
   --border-radius: 4px;
+  --border-color: #eee;
+  --border-color-hl: #333;
   --max-mobile-width: 360px;
+
+  --fs-header: 36px;
+  --fs-title: 24px;
+  --fs-label: 18px;
+  --fs-default: 16px;
 
   --base-space: 4px;
   --space-0: 0px;

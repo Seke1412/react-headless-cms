@@ -50,7 +50,7 @@ const PaginationWrapper = ({id}) => {
 }
 
 PaginationWrapper.propTypes = {
-  id: string.required
+  id: string.isRequired
 }
 
 export default memo(PaginationWrapper)

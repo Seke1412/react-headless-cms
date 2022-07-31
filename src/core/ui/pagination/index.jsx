@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { func, number, oneOf } from 'prop-types'
+import { func, number, oneOf, object } from 'prop-types'
 import {noop} from '../../utils/helpers'
 import PageItem from './page-item'
 import PageRange from './page-range'
@@ -9,6 +9,7 @@ import {StyledPagination} from './views'
 const Pagination = ({
   onItemClick,
   totalPage, numPageView, align,
+  customStyle,
 }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const onPageItemClick = (data) => {
@@ -28,7 +29,10 @@ const Pagination = ({
   }
 
   return (
-    <StyledPagination align={align}>
+    <StyledPagination
+      align={align}
+      customStyle={customStyle}
+    >
       {renderAnchorPage('First')}
       {totalPage > 2
         && (
@@ -49,13 +53,15 @@ Pagination.propTypes = {
   onItemClick: func,
   numPageView: number,
   align: oneOf(['left', 'right', 'center']),
-  totalPage: number.required,
+  totalPage: number.isRequired,
+  customStyle: object,
 }
 
 Pagination.defaultProps = {
   onItemClick: noop,
   numberPageView: 3,
   align: 'right',
+  customStyle: null,
 }
 
 

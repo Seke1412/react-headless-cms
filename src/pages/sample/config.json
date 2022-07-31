@@ -1,0 +1,18 @@
+{
+  "title": "Sample Page",
+  "languages": ["en", "vi"],
+  "content": [
+    {
+      "type": "input",
+      "label": "Article Label",
+      "fieldName": "articleLabel",
+      "fieldProps": {
+        "iconName": "Apple",
+        "placeholder": "Please enter value here",
+        "customStyle": {
+          "border-color": "var(--primary-variant-1)"
+        }
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Nav } from './views'
 
 const NavBar = () => {
-  const [toggle, setToogle] = useState(false)
+  const [toggle, setToogle] = useState(true)
 
   return (
     <Nav

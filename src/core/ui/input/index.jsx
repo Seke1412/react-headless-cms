@@ -1,5 +1,5 @@
 import React from 'react'
-import { string, func, element, oneOf } from 'prop-types'
+import { object, string, func, element, oneOf } from 'prop-types'
 
 import {noop} from '../../utils/helpers'
 import { IconWrapper, InputWrapper, StyledInput} from './views'
@@ -8,6 +8,7 @@ const Input = ({
   value, placeholder, onFocus,
   onBlur, onChange,
   icon, iconPosition,
+  customStyle
 }) => {
   const renderIcon = () => {
     if (icon) {
@@ -25,7 +26,9 @@ const Input = ({
   }
 
   return (
-    <InputWrapper>
+    <InputWrapper
+      customStyle={customStyle}
+    >
       <StyledInput
         hasIcon={!!icon}
         iconPosition={iconPosition}
@@ -49,7 +52,8 @@ Input.propTypes = {
   onBlur: func,
   onChange: func,
   icon: element,
-  iconPosition: oneOf(['left', 'right'])
+  iconPosition: oneOf(['left', 'right']),
+  customStyle: object,
 }
 
 Input.defaultProps = {
@@ -60,6 +64,7 @@ Input.defaultProps = {
   onChange: noop,
   icon: null,
   iconPosition: 'left',
+  customStyle: null,
 }
 
 export default Input;
