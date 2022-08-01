@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 
-const Wrapper = styled.div.attrs(({className}) => ({
-  className: `tabs ${className ?? ''}`
+const Wrapper = styled.div.attrs(() => ({
+  className: 'tabs'
 }))`
   width: 100%;
   height: 46px;

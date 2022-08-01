@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-const NextBack = styled.span.attrs(({className}) => ({
-  className: `next-back ${className ?? ''}`
+const NextBack = styled.span.attrs(() => ({
+  className: 'next-back'
 }))`
   transition: color 0.3s ease-out;
   cursor: pointer;

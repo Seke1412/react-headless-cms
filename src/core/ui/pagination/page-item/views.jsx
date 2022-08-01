@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 
-const StyledPageItem = styled.span.attrs(({className}) => ({
-  className: `page-item ${className ?? ''}`
+const StyledPageItem = styled.span.attrs(() => ({
+  className: 'page-item'
 }))`
   padding: var(--space-1) var(--space-2);
   margin: var(--space-1);

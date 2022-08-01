@@ -1,10 +1,11 @@
 import React from 'react'
-import { object, string, func, element, oneOf } from 'prop-types'
+import { object, string, func, any, oneOf } from 'prop-types'
 
 import {noop} from '../../utils/helpers'
 import { IconWrapper, InputWrapper, StyledInput} from './views'
 
 const Input = ({
+  className,
   value, placeholder, onFocus,
   onBlur, onChange,
   icon, iconPosition,
@@ -27,6 +28,7 @@ const Input = ({
 
   return (
     <InputWrapper
+      className={className}
       customStyle={customStyle}
     >
       <StyledInput
@@ -46,17 +48,19 @@ const Input = ({
 }
 
 Input.propTypes = {
+  className: string,
   value: string,
   placeholder: string,
   onFocus: func,
   onBlur: func,
   onChange: func,
-  icon: element,
+  icon: any,
   iconPosition: oneOf(['left', 'right']),
   customStyle: object,
 }
 
 Input.defaultProps = {
+  className: '',
   value: '',
   placeholder: '',
   onFocus: noop,

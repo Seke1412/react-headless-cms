@@ -1,32 +1,42 @@
 import React, {useState, useCallback} from 'react'
 import {object} from 'prop-types'
-import Tabs from '../../core/ui/tabs'
+import UI from '../../core/ui'
+
 import {
   ContentWrapper, Title,
 } from './views'
+
+import Fields from './fields'
 
 const DefaultLanguageId = 'en'
 
 const BasicTemplate = ({config}) => {
   const [currentTab, setCurrentTab] = useState(DefaultLanguageId)
   const { title, languages, content, actions } = config
-  console.log(content)
-  console.log(actions)
+
   const onTabChange = useCallback(({id}) => {
     setCurrentTab(id)
   }, [setCurrentTab])
+
+  const shouldRenderContent = Array.isArray(content) && content.length > 0
 
   return (
     <ContentWrapper>
       <Title>
         {title}
       </Title>
-      <Tabs
+      <UI.Tabs
         align='right'
         activeTab={currentTab}
         onTabChange={onTabChange}
         tabs={languages}
       />
+      {shouldRenderContent &&
+        <Fields 
+          content={content}
+          actions={actions}
+        />
+      }
     </ContentWrapper>
   )
 }

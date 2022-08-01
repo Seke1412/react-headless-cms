@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 
-const StyledTable = styled.table.attrs(({className}) => ({
-  className: `table ${className ?? ''}`
+const StyledTable = styled.table.attrs(() => ({
+  className: 'table'
 }))`
   margin: 0px;
   padding: 0px;
@@ -12,14 +12,14 @@ const StyledTable = styled.table.attrs(({className}) => ({
   ${({customStyle}) => customStyle && css(customStyle)};
 `
 
-const THead = styled.thead.attrs(({className}) => ({
-  className: `thead ${className ?? ''}`
+const THead = styled.thead.attrs(() => ({
+  className: 'thead'
 }))`
   background-color: #ddd;
 `
 
-const TR = styled.tr.attrs(({className}) => ({
-  className: `tr ${className ?? ''}`
+const TR = styled.tr.attrs(() => ({
+  className: 'tr'
 }))`
   ${({showRowBorder}) => showRowBorder && css`
     &:not(:last-child) {
@@ -28,8 +28,8 @@ const TR = styled.tr.attrs(({className}) => ({
   `}
 `
 
-const TD = styled.td.attrs(({className}) => ({
-  className: `td ${className ?? ''}`
+const TD = styled.td.attrs(() => ({
+  className: 'td'
 }))`
   padding: var(--space-2);
 `

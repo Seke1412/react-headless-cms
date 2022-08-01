@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 
-const StyledPagination = styled.div.attrs(({className}) => ({
-  className: `pagination ${className ?? ''}`
+const StyledPagination = styled.div.attrs(() => ({
+  className: 'pagination'
 }))`
   display: flex;
   justify-content: flex-end;

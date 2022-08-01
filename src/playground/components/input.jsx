@@ -18,6 +18,7 @@ const InputWrapper = ({id}) => {
       <h2>Input</h2>
       <p>
         <b>Props:</b> <br />
+
         placeholder: string <br />
         value: string *(<i>Because this is a controlled input, so need value to pass in</i>)<br />
         onFocus: func<br />
@@ -26,6 +27,7 @@ const InputWrapper = ({id}) => {
         <br/>
       </p>
       <Input
+        className='input-wrapper-classname-added'
         placeholder="Please enter text here"
         value={inputValue}
         onChange={onChangeCb}

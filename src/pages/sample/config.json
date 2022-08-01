@@ -3,42 +3,39 @@
   "languages": [{"id": "en", "label": "English"}, {"id": "vi", "label": "Vietnamese"}],
   "content": [
     {
-      "type": "input",
+      "type": "Input",
       "label": "Article Title",
       "fieldName": "articleTitle",
       "fieldProps": {
         "iconName": "Apple",
-        "placeholder": "Please enter value here",
-        "customStyle": {
-          "border-color": "var(--primary-variant-1)"
-        }
-      }
+        "placeholder": "Please enter value here"
+      },
+      "rules": {"required": "Article title is required!"}
     },
     {
-      "type": "textarea",
+      "type": "TextArea",
       "label": "Article Content",
       "fieldName": "articleContent",
       "fieldProps": {
-        "placeholder": "Please enter content",
-        "customStyle": {
-          "border-color": "var(--primary-variant-1)"
-        }
-      }
+        "placeholder": "Please enter content"
+      },
+      "rules": {"required": "Article content is required!"}
     }
   ],
   "actions": [
     {
-      "type": "button",
+      "type": "Button",
       "label": "Cancel",
       "fieldProps": {
-        "type": "secondary"
+        "buttonType": "cancel"
       }
     },
     {
-      "type": "button",
+      "type": "Button",
       "label": "Save",
       "fieldProps": {
-        "type": "primary"
+        "type": "submit",
+        "buttonType": "primary"
       }
     }
   ]

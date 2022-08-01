@@ -10,7 +10,7 @@ const StyledTextarea = styled.textarea.attrs(() => ({
   margin: 0px;
   padding: var(--space-2) var(--space-4);
 
-  min-width: var(--max-mobile-width);
+  min-width: calc(var(--max-mobile-width) - var(--space-8));
   height: 80px;
 
   border: 1px solid var(--border-color);

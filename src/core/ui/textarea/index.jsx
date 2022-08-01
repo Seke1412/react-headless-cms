@@ -24,7 +24,7 @@ const TextArea = ({
 }
 
 TextArea.propTypes = {
-  value: string.isRequired,
+  value: string,
   allowResize: bool,
   onFocus: func,
   onBlur: func,

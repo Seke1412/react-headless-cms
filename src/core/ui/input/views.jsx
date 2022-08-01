@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 
-const IconWrapper = styled.span.attrs(({className}) => ({
-  className: `icon-wrapper ${className ?? className}`
+const IconWrapper = styled.span.attrs(() => ({
+  className: 'icon-wrapper'
 }))`
   position: absolute;
   top: 50%;
@@ -15,8 +15,8 @@ const IconWrapper = styled.span.attrs(({className}) => ({
   };
 `
 
-const InputWrapper = styled.div.attrs(({className}) => ({
-  className: `input-wrapper ${className ?? ''}`
+const InputWrapper = styled.div.attrs(() => ({
+  className: 'input-wrapper'
 }))`
   position: relative;
   width: var(--max-mobile-width);
@@ -25,8 +25,8 @@ const InputWrapper = styled.div.attrs(({className}) => ({
   ${({customStyle}) => customStyle && css(customStyle)};
 `
 
-const StyledInput = styled.input.attrs(({className}) => ({
-  className: `styled-input ${className ?? ''}`
+const StyledInput = styled.input.attrs(() => ({
+  className: 'styled-input'
 }))`
   height: 100%;
   width: 100%;
@@ -34,13 +34,13 @@ const StyledInput = styled.input.attrs(({className}) => ({
   padding: var(--space-1) var(--space-2);
 
   box-sizing: border-box;
-  border: 1px solid #ededed;
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   transition: border-color 0.3s ease-out;
 
   &:hover, &:visited, &:focus, &.haveValue {
     transition: border-color 0.3s ease-out;
-    border-color: var(--primary);
+    border-color: var(--border-color-hl);
   }
 
   ${({hasIcon, iconPosition}) => hasIcon && iconPosition === 'left' &&
