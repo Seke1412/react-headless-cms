@@ -20,6 +20,21 @@
         "placeholder": "Please enter content"
       },
       "rules": {"required": "Article content is required!"}
+    },
+    {
+      "type": "UploadFile",
+      "label": "Article images",
+      "fieldName": "files",
+      "fieldProps": {
+        "label": "Upload files",
+        "limitSizeInKB": 3000,
+        "accept": "image/*",
+        "multiple": "multiple",
+        "customStyle": {
+          "width": "var(--max-mobile-width)"
+        }
+      },
+      "rules": {"required": "Article content is required!"}
     }
   ],
   "actions": [

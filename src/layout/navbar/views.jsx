@@ -24,11 +24,11 @@ const Nav = styled.nav.attrs(() => ({
 const Logo = styled.img.attrs(() => ({
   className: 'logo'
 }))`
-  width: 80%;
+  width: 75%;
   height: auto;
 
   margin: 0px;
-  padding: 0px;
+  padding: var(--space-3) 0px;
 
   display: flex;
   align-self: flex-start;
