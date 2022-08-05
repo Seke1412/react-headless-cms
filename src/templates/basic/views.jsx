@@ -14,14 +14,24 @@ const Title = styled.h2.attrs(() => ({
 }))`
   font-size: var(--fs-title);
   font-family: var(--font-family);
+  line-height: var(--title-min-height);
+
+  background-color: white;
   color: var(--text-color);
-  line-height: var(--fs-title);
+  
+  box-sizing: border-box;
+  height: auto;
+  min-height: var(--title-min-height);
+  padding-left: var(--space-4);
+
+  border-bottom: 1px solid var(--border-color);
 `
 
 const Wrapper = styled.div.attrs(() => ({
   className: 'fields'
 }))`
-  margin: var(--space-6) 0px;
+  background-color: white;
+  padding: var(--space-8);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);

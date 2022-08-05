@@ -1,8 +1,10 @@
+import {FooterWrapper} from './views'
+
 const Footer = () => {
   return (
-    <footer>
-      this is footer
-    </footer>
+    <FooterWrapper>
+      Copyright will goes here
+    </FooterWrapper>
   )
 }
 

@@ -13,12 +13,12 @@ const Body = styled.section.attrs(() => ({
 }))`
   display: flex;
   height: auto;
-  min-height: calc(100vh - var(--space-8));
+  min-height: 100vh;
   flex: auto;
   flex-direction: column;
-  background-color: white;
+  background-color: #eee;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-6);
+  padding: 0px;
 `
 
 export {

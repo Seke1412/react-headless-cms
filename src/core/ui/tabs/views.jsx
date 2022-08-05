@@ -3,7 +3,7 @@ import styled, {css} from 'styled-components'
 const Wrapper = styled.div.attrs(() => ({
   className: 'tabs'
 }))`
-  width: 100%;
+  width: calc(100% - var(--space-8));
   height: 46px;
   display: flex;
   flex-direction: row;
@@ -11,6 +11,8 @@ const Wrapper = styled.div.attrs(() => ({
   ${({align}) => align === 'left' && 'justify-content: flex-start;'};
   ${({align}) => align === 'center' && 'justify-content: center;'};
   ${({align}) => align === 'right' && 'justify-content: flex-end;'};
+
+  padding: 0px var(--space-4);
 
   ${({customStyle}) => customStyle && css(customStyle)};
 `
