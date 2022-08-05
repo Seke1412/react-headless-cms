@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import Playground from './playground'
 
+import PreviewSample from './pages/preview-sample'
+
 import Home from './pages/home'
 import Sample from './pages/sample'
 import NotFound from './pages/404'
@@ -26,6 +28,10 @@ root.render(
           <Route
             path="sample"
             element={<Sample />}
+          />
+          <Route
+            path="preview-sample"
+            element={<PreviewSample />}
           />
           <Route
             path="playground"
