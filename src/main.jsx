@@ -7,6 +7,7 @@ import Playground from './playground'
 import PreviewSample from './pages/preview-sample'
 
 import Home from './pages/home'
+import SampleCreate from './pages/sample/create'
 import Sample from './pages/sample'
 import NotFound from './pages/404'
 
@@ -25,10 +26,16 @@ root.render(
             index
             element={<Home />}
           />
-          <Route
-            path="sample"
-            element={<Sample />}
-          />
+          <Route path="sample">
+            <Route 
+              index
+              element={<Sample/>}
+            />
+            <Route
+              path="create"
+              element={<SampleCreate />}
+            />
+          </Route>
           <Route
             path="preview-sample"
             element={<PreviewSample />}

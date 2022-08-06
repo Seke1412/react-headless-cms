@@ -126,7 +126,8 @@ const DataRender = [
 const TableWrapper = ({id}) => {
   const [rowValue, setRowValue] = useState(null)
   const [rowRPValue, setRowRPValue] = useState(null)
-  const [toggleCode, setToggleCode] = useState(false)
+  const [toggleCode1, setToggleCode1] = useState(false)
+  const [toggleCode2, setToggleCode2] = useState(false)
 
   const onRowClick = (e, data) => {
     setRowValue(data)
@@ -161,12 +162,12 @@ const TableWrapper = ({id}) => {
       </pre>
 
       <CodeTitle
-        toggleCode={toggleCode}
-        onClick={() => setToggleCode(state => !state)}
+        toggleCode={toggleCode1}
+        onClick={() => setToggleCode1(state => !state)}
       >
         Code
       </CodeTitle>
-      <Code toggleCode={toggleCode}>
+      <Code toggleCode={toggleCode1}>
         const Columns = {JSON.stringify(Columns, null, ' ')}<br />
         <br />
         const DataSource = {JSON.stringify(DataSource, null, ' ')}<br />
@@ -192,12 +193,12 @@ const TableWrapper = ({id}) => {
       </pre>
 
       <CodeTitle
-        toggleCode={toggleCode}
-        onClick={() => setToggleCode(state => !state)}
+        toggleCode={toggleCode2}
+        onClick={() => setToggleCode2(state => !state)}
       >
         Code
       </CodeTitle>
-      <Code toggleCode={toggleCode}>
+      <Code toggleCode={toggleCode2}>
         const Columns = {JSON.stringify(ColumnRenderCopy, null, ' ')}<br />
         <br />
         const DataSource = {JSON.stringify(DataRender, null, ' ')}<br />

@@ -20,7 +20,7 @@ const PreviewSample = () => {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       }
-      const url = 'http://localhost:8080/samples'
+      const url = baseUrl + 'samples'
       const res = await axios.get(url, requestOptions)
       if (!isCancel) {
         setSamples(res.data)
@@ -50,7 +50,6 @@ const PreviewSample = () => {
                 {photoUrls.map(uri => {
                   if (uri) {
                     const url = baseUrl + uri; 
-                    console.log(url)
                     return (<Image src={url} />)
                   }
                 })}

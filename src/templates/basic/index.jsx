@@ -33,6 +33,7 @@ const BasicTemplate = ({config}) => {
       />
       {shouldRenderContent &&
         <Fields 
+          currentLanguageId={currentTab} 
           content={content}
           actions={actions}
         />

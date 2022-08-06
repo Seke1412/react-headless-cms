@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 
 const StyledSVG = styled.svg`
   display: block;
@@ -6,7 +6,10 @@ const StyledSVG = styled.svg`
   fill: currentColor;
   padding: 0px;
   height: auto;
+
+  ${({customStyle}) => customStyle && css(customStyle)};
 `
+
 
 export default StyledSVG
 

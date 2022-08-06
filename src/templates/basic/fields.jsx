@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {array} from 'prop-types'
+import {string, array} from 'prop-types'
 import {useForm, Controller} from 'react-hook-form'
 import {ErrorMessage} from '@hookform/error-message'
 import axios from 'axios'
@@ -9,9 +9,10 @@ import {
   Wrapper, FieldWrapper, FieldLabel, Field, ErrorLabel, Form, ActionWrapper,
 } from './views'
 
-const Fields = ({content, actions}) => {
+const Fields = ({content, actions, currentLanguageId}) => {
   const [uploadParam, setUploadParam] = useState('');
   const { handleSubmit, control, formState: {errors}} = useForm();
+  const [response, setResponse] = useState('')
 
   const shouldRenderActions = Array.isArray(actions) && actions.length > 0
 
@@ -31,13 +32,13 @@ const Fields = ({content, actions}) => {
           body.append(key, value)
         }
       })
+      body.append('langId', currentLanguageId)
     }
 
     const res = await axios.post(url, body, {headers})
+    setResponse(res.data) 
 
-    console.log(res)
-
-  }, [uploadParam])
+  }, [uploadParam, currentLanguageId])
 
   return content.length > 0 && (
     <Wrapper>
@@ -93,11 +94,13 @@ const Fields = ({content, actions}) => {
           </ActionWrapper>
         }
       </Form>
+      {response}
     </Wrapper>
   )
 }
 
 Fields.propTypes = {
+  currentLanguageId: string.isRequired,
   content: array.isRequired,
   actions: array.isRequired,
 }
