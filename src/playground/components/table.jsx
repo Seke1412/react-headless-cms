@@ -23,13 +23,13 @@ const Columns = [
 
 const DataSource = [
   {
-    key: '1',
+    id: '1',
     name: 'Mike',
     age: 32,
     address: '10 Downing Street',
   },
   {
-    key: '2',
+    id: '2',
     name: 'John',
     age: 42,
     address: '10 Downing Street',
@@ -101,21 +101,21 @@ const ColumnRenderCopy = [
 
 const DataRender = [
   {
-    key: '1',
+    id: '1',
     name: 'John Brown',
     age: 32,
     address: 'New York No. 1 Lake Park',
     tags: ['nice', 'developer'],
   },
   {
-    key: '2',
+    id: '2',
     name: 'Jim Green',
     age: 42,
     address: 'London No. 1 Lake Park',
     tags: ['loser'],
   },
   {
-    key: '3',
+    id: '3',
     name: 'Joe Black',
     age: 32,
     address: 'Sidney No. 1 Lake Park',

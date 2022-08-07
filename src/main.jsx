@@ -8,6 +8,7 @@ import PreviewSample from './pages/preview-sample'
 
 import Home from './pages/home'
 import SampleCreate from './pages/sample/create'
+import SampleEdit from './pages/sample/edit'
 import Sample from './pages/sample'
 import NotFound from './pages/404'
 
@@ -34,6 +35,10 @@ root.render(
             <Route
               path="create"
               element={<SampleCreate />}
+            />
+            <Route
+              path="edit/:id"
+              element={<SampleEdit />}
             />
           </Route>
           <Route

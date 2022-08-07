@@ -12,32 +12,33 @@ const Table = ({
   const renderData = () => {
     const header = []
     for (let i = 0; i < columns.length; i += 1) {
-      const {title, dataIndex} = columns[i]
+      const {title} = columns[i]
       header.push(
-        <th key={dataIndex}>
+        <th key={i}>
           {title}
         </th>
       )
     }
 
-    const rowArray = dataSource.map((row, index) => {
+    const rowArray = dataSource.map((row) => {
       const cells = []
       for (let i = 0; i < columns.length; i += 1) {
-        const {key, dataIndex, render} = columns[i]
+        const {key, render} = columns[i]
         const cellData = render
           ? render(row[key])
           : row[key]
         cells.push(
           <TD
-            key={dataIndex}
+            key={i}
           >
             {cellData}
           </TD>
         )
       }
-      return (
+
+      return ( 
         <TR
-          key={row.key || index}
+          key={row.id}
           showRowBorder={showRowBorder}
           onClick={(e) => onRowClick(e, row)}
         >

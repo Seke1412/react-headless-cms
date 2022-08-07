@@ -1,16 +1,72 @@
-import React, { useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import Layout from '../../layout'
+import Table from '../../core/ui/table'
+import Button from '../../core/ui/button'
 
 import {
   ContentWrapper, Title,
-  Content,
+  Content, ActionWrapper, ActionButton, TableHead
 } from './views'
 
+
+const Actions = ['edit', 'delete', 'view']
+const TableStyle = {
+  'background-color': 'white',
+  width: '100%',
+  height: 'auto',
+}
+
+const ButtonStyle = {
+  margin: 'var(--space-4) 0px',
+  'align-self': 'flex-end'
+}
+
 const SampleList = () => {
-  const [samples, setSamples] = useState(null)
+  const [samples, setSamples] = useState([])
   const baseUrl = 'http://localhost:8080/'
+  const onActionClick = useCallback((e, action) => {
+    e.target.action = action
+  }, [])
+
+  const Columns = [
+    {
+      title: <TableHead>Title</TableHead>,
+      dataIndex: 'title',
+      key: 'title',
+    },
+    {
+      title: <TableHead> Content </TableHead>,
+      dataIndex: 'content',
+      key: 'content',
+    },
+    {
+      title: <TableHead>Photo Urls</TableHead>,
+      dataIndex: 'photo',
+      key: 'photo',
+    },
+    {
+      title: <TableHead>Actions</TableHead>,
+      dataIndex: 'actions',
+      key: 'actions',
+      /*eslint-disable react/no-multi-comp*/
+      render: () => (
+        <ActionWrapper>
+          {Actions?.map( action => (
+            <ActionButton
+              key={action}
+              onClick={(e) => onActionClick(e, action)}
+            >
+              {action}
+            </ActionButton>
+          ))}
+        </ActionWrapper>
+      )
+      /*eslint-enable*/
+    },
+  ]
 
   useEffect(() => {
     let isCancel = false
@@ -40,7 +96,23 @@ const SampleList = () => {
           Samples
         </Title>
         <Content>
-          {JSON.stringify(samples, null, 2)}
+          <Link 
+            to="create"
+            style={{display: 'flex', alignSelf: 'flex-end'}}
+          >
+            <Button
+              className="create-button"
+              label="Create"
+              customStyle={ButtonStyle}
+            />
+          </Link>
+          <Table
+            showTableBorder
+            customStyle={TableStyle}
+            columns={Columns}
+            dataSource={samples}
+            onRowClick={(e, row) => console.log(e.target.action, row)}
+          />
         </Content>
       </ContentWrapper>
     </Layout>
