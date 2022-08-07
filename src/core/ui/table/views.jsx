@@ -7,8 +7,8 @@ const StyledTable = styled.table.attrs(() => ({
   padding: 0px;
   border-collapse: collapse;
 
-  ${({showBorder}) => showBorder && 'border: 1px solid var(--text-color);'}
-
+  ${({showBorder}) => showBorder && 'border: 1px solid var(--border-color);'}
+  box-shadow: 1px 1px 2px 2px rgba(212, 241, 244, 0.8) ;
   ${({customStyle}) => customStyle && css(customStyle)};
 `
 
@@ -23,7 +23,7 @@ const TR = styled.tr.attrs(() => ({
 }))`
   ${({showRowBorder}) => showRowBorder && css`
     &:not(:last-child) {
-      border-bottom: 1px solid var(--text-color);
+      border-bottom: 1px solid var(--border-color);
     }
   `}
 `
@@ -31,7 +31,7 @@ const TR = styled.tr.attrs(() => ({
 const TD = styled.td.attrs(() => ({
   className: 'td'
 }))`
-  padding: var(--space-2);
+  padding: var(--space-2) var(--space-4);
 `
 
 export {

@@ -20,7 +20,7 @@ const TableStyle = {
 }
 
 const ButtonStyle = {
-  margin: 'var(--space-4) 0px',
+  'margin-bottom': 'var(--space-4)',
   'align-self': 'flex-end'
 }
 

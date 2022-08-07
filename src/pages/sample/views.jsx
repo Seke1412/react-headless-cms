@@ -44,7 +44,7 @@ const TableHead = styled.h4.attrs(() => ({
   font-size: var(--fs-default);
   color: var(--primary);
   background-color: var(--secondary);
-  padding: var(--space-2);
+  padding: var(--space-2) var(--space-4);
   text-align: left;
 `
 

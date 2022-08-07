@@ -74,6 +74,7 @@ const MenuItem = styled.p.attrs(() =>  ({
     ? css`
       background-color: var(--background-color);
       color: var(--primary);
+      font-weight: bolder;
     `
     : css`
      &:hover {
@@ -91,7 +92,7 @@ const MenuLabel = styled.span.attrs(() => ({
 }))`
   text-overflow: ellipsis;
   display: flex;
-  font-size: 20px;
+  font-size: var(--fs-default);
   line-height: 24px;
 `
 
