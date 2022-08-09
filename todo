@@ -1,0 +1,7 @@
+task:
+- Delete with confirmation dialog
+- View content is pure text/images
+
+misc:
+- success error message width dialog (so that, when ok hit => reload current page)
+- list sample page with pagination, filter & search

@@ -89,6 +89,33 @@ const ErrorLabel = styled.p.attrs(() => ({
   font-size: 11px;
 `
 
+const BackWrapper = styled.div.attrs(() => ({
+  className: 'back-wrapper'
+}))`
+  display: flex;
+  align-self: flex-start;
+  gap: var(--space-3);
+  padding: 0px var(--space-4);
+  margin-top: var(--space-4);
+  cursor: pointer;
+  color: var(--text-color);
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    transition: all 0.3s ease-out;
+    color: var(--primary-variant-1);
+  }
+`
+
+const BackText = styled.span.attrs(() => ({
+  className: 'back-text'
+}))`
+  font-family: var(--font-family);
+  font-size: var(--fs-default);
+  line-height: var(--fs-default);
+  font-weight: bolder;
+`
+
 export {
   ContentWrapper,
   Title,
@@ -99,4 +126,6 @@ export {
   ActionWrapper,
   Form,
   ErrorLabel,
+  BackWrapper,
+  BackText,
 }

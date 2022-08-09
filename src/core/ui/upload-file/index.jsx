@@ -83,11 +83,6 @@ const UploadFile = ({
   }
 
   const onDeleteFileClick = (fileIndex) => {
-    /*
-    const files = [...value]
-    files.splice(fileIndex, 1)
-    setPreviewFiles(state => state.filter(item => item.index !== fileIndex))
-    */
     const newState = previewFiles.filter(item => item.index !== fileIndex)
     onChange(newState)
   }
