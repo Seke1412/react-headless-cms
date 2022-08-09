@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import { WebServiceUrl } from '../../core/enums/constants'
 import {
   PreviewWrapper,
   ArticleTitle,
@@ -11,7 +12,6 @@ import {
 
 const PreviewSample = () => {
   const [samples, setSamples] = useState(null)
-  const baseUrl = 'http://localhost:8080/'
 
   useEffect(() => {
     let isCancel = false
@@ -20,7 +20,7 @@ const PreviewSample = () => {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       }
-      const url = baseUrl + 'samples'
+      const url = WebServiceUrl + 'samples'
       const res = await axios.get(url, requestOptions)
       if (!isCancel) {
         setSamples(res.data)
@@ -49,7 +49,7 @@ const PreviewSample = () => {
               (<ImageWrapper>
                 {photoUrls.map(uri => {
                   if (uri) {
-                    const url = baseUrl + uri; 
+                    const url = WebServiceUrl + uri; 
                     return (<Image src={url} />)
                   }
                 })}

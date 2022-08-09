@@ -1,11 +1,10 @@
 {
-  "title": "Sample Page",
   "languages": [{"id": "en", "label": "English"}, {"id": "vi", "label": "Vietnamese"}],
   "content": [
     {
       "type": "Input",
       "label": "Article Title",
-      "fieldName": "articleTitle",
+      "fieldName": "title",
       "fieldProps": {
         "iconName": "Apple",
         "placeholder": "Please enter value here"
@@ -15,7 +14,7 @@
     {
       "type": "TextArea",
       "label": "Article Content",
-      "fieldName": "articleContent",
+      "fieldName": "content",
       "fieldProps": {
         "placeholder": "Please enter content"
       },

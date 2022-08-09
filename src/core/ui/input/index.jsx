@@ -7,10 +7,11 @@ import { IconWrapper, InputWrapper, StyledInput} from './views'
 const Input = ({
   className,
   value, placeholder, onFocus,
-  onBlur, onChange,
+  onBlur, onChange, defaultValue,
   icon, iconPosition,
-  customStyle
+  customStyle,
 }) => {
+
   const renderIcon = () => {
     if (icon) {
       const Icon = icon
@@ -32,11 +33,11 @@ const Input = ({
       customStyle={customStyle}
     >
       <StyledInput
-        hasIcon={!!icon}
+        hasIcon={icon}
         iconPosition={iconPosition}
         hasValue={value !== ''}
 
-        value={value}
+        value={value || defaultValue}
         placeholder={placeholder}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -57,6 +58,7 @@ Input.propTypes = {
   icon: any,
   iconPosition: oneOf(['left', 'right']),
   customStyle: object,
+  defaultValue: string,
 }
 
 Input.defaultProps = {
@@ -69,6 +71,7 @@ Input.defaultProps = {
   icon: null,
   iconPosition: 'left',
   customStyle: null,
+  defaultValue: '',
 }
 
 export default Input;

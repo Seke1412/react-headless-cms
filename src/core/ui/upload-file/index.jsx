@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {number, func, string, object, bool, any} from 'prop-types'
 import {noop} from '../../utils/helpers'
 
@@ -34,6 +34,12 @@ const UploadFile = ({
   const [loading, setLoading] = useState(false)
   const [previewFiles, setPreviewFiles] = useState([])
 
+  useEffect(() => {
+    if (value?.length > 0 && value?.length !== previewFiles.length) {
+      setPreviewFiles(value)
+    }
+  }, [value, previewFiles])
+
   const onChangeFile = (e) => {
     onErrorMessage(null)
     setLoading(true)
@@ -43,6 +49,8 @@ const UploadFile = ({
       // No files select
       return
     }
+    
+    let previewLoaded = []
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
@@ -54,59 +62,68 @@ const UploadFile = ({
       }
 
       const isImage = type.includes('image/')
+      const index = 'file-' + i
+
       if (isImage) {
         const fileReader = new FileReader();
         fileReader.readAsDataURL(file);
         fileReader.onload = e => {
           const result = e.target.result
-          setPreviewFiles(state => [...state, {uri: result, type: 'image', index: i}])
-        }
-      } else {
-        setPreviewFiles(state => [...state, {name: name, type: 'file', index: i}])
-      }
-    }
+          const previewData = {uri: result, type: 'image', file, index}
+          previewLoaded.push(previewData)
 
-    onChange(files)
-    setLoading(false)
+          if (previewLoaded.length === files.length) {
+            onChange([...previewLoaded, ...previewFiles])
+            setLoading(false)
+          }
+
+        }
+      } 
+    }
   }
 
   const onDeleteFileClick = (fileIndex) => {
+    /*
     const files = [...value]
     files.splice(fileIndex, 1)
-
     setPreviewFiles(state => state.filter(item => item.index !== fileIndex))
-    onChange(files)
+    */
+    const newState = previewFiles.filter(item => item.index !== fileIndex)
+    onChange(newState)
   }
 
   const renderPreviewFiles = () => {
-    return previewFiles.map((fileDataOrName) => {
+    return previewFiles?.map((fileDataOrName) => {
       const {uri, name, type, index} = fileDataOrName
-      const isImage = type === 'image'
 
-      if (isImage) {
-        return (
-          <FileItem
-            isImage
-            key={index}
-          >
-            <FileImage src={uri} />
-            <StyledDeleteIcon
+      switch (type) {
+        case 'image':
+        case 'url':
+          return (
+            <FileItem
               isImage
-              onClick={() => onDeleteFileClick(index)}
-            />
-          </FileItem>
-        )
-      } else {
-        return (
-          <FileItem key={name}>
-            <StyledClipIcon />
-            <FileName>{name}</FileName>
-            <StyledDeleteIcon onClick={() => onDeleteFileClick(index)} />
-          </FileItem>
-        )
+              key={index}
+            >
+              <FileImage src={uri} />
+              <StyledDeleteIcon
+                isImage
+                onClick={() => onDeleteFileClick(index)}
+              />
+            </FileItem>
+          )
+        default:
+          return (
+            <FileItem key={name}>
+              <StyledClipIcon />
+              <FileName>{name}</FileName>
+              <StyledDeleteIcon onClick={() => onDeleteFileClick(index)} />
+            </FileItem>
+          )
       }
     })
   }
+  
+  const shouldRenderPreview = value?.length > 0 || previewFiles?.length > 0
 
   return (
     <UploadHolder
@@ -128,7 +145,7 @@ const UploadFile = ({
         </Label>
         <StyledUploadIcon />
       </ButtonWrapper>
-      {value?.length > 0
+      {shouldRenderPreview
         ? <FilesHolder>{renderPreviewFiles()}</FilesHolder>
         : loading && <LoadingIcon />
       }

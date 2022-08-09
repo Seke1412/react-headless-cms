@@ -5,6 +5,8 @@ import axios from 'axios'
 import UploadFile from '../../core/ui/upload-file'
 import Button from '../../core/ui/button'
 
+import { WebServiceUrl } from '../../core/enums/constants'
+
 import { Code, CodeTitle } from './views'
 
 const UploadWrapper = ({id}) => {
@@ -17,8 +19,8 @@ const UploadWrapper = ({id}) => {
 
   const doUpload = () => {
     const service={
-      url: 'http://localhost:8080',
-      api: '/playground-upload',
+      url: WebServiceUrl,
+      api: 'playground-upload',
       method: 'POST',
       params: 'files',
       headers: {'Content-Type': 'multipart/form-data'}

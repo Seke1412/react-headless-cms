@@ -1,10 +1,12 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import Layout from '../../layout'
 import Table from '../../core/ui/table'
 import Button from '../../core/ui/button'
+
+import {WebServiceUrl} from '../../core/enums/constants'
 
 import {
   ContentWrapper, Title,
@@ -26,7 +28,8 @@ const ButtonStyle = {
 
 const SampleList = () => {
   const [samples, setSamples] = useState([])
-  const baseUrl = 'http://localhost:8080/'
+  const navigate = useNavigate()
+
   const onActionClick = useCallback((e, action) => {
     e.target.action = action
   }, [])
@@ -68,6 +71,17 @@ const SampleList = () => {
     },
   ]
 
+  const onRowClick = useCallback((e, row) => {
+    const action = e.target.action
+    if (Actions.includes(action)) {
+      switch(action) {
+        case 'edit':
+          navigate('edit/' + row.id)
+          return;
+      }
+    }
+  }, [navigate])
+
   useEffect(() => {
     let isCancel = false
     const fetchData = async () => {
@@ -75,7 +89,7 @@ const SampleList = () => {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       }
-      const url = baseUrl + 'samples'
+      const url = WebServiceUrl + 'samples'
       const res = await axios.get(url, requestOptions)
       if (!isCancel) {
         setSamples(res.data)
@@ -111,7 +125,7 @@ const SampleList = () => {
             customStyle={TableStyle}
             columns={Columns}
             dataSource={samples}
-            onRowClick={(e, row) => console.log(e.target.action, row)}
+            onRowClick={onRowClick}
           />
         </Content>
       </ContentWrapper>

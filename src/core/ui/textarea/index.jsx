@@ -5,11 +5,11 @@ import {StyledTextarea} from './views'
 const TextArea = ({
   onFocus, onBlur, onChange, onKeyUp,
   placeholder, value, disabled, allowResize,
-  dataTest, customStyle,
+  defaultValue, dataTest, customStyle,
 }) => {
   return (
     <StyledTextarea
-      value={value}
+      value={value || defaultValue}
       allowResize={allowResize}
       placeholder={placeholder}
       onKeyUp={onKeyUp}
@@ -34,6 +34,7 @@ TextArea.propTypes = {
   dataTest: string,
   customStyle: object,
   disabled: bool,
+  defaultValue: string,
 }
 
 TextArea.defaultProps = {
@@ -46,6 +47,7 @@ TextArea.defaultProps = {
   dataTest: '',
   customStyle: null,
   disabled: false,
+  defautValue: ''
 }
 
 export default TextArea

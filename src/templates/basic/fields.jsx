@@ -1,32 +1,55 @@
-import React, {useState, useCallback} from 'react'
-import {string, array} from 'prop-types'
+import React, {useEffect, useState, useCallback} from 'react'
+import {object, string, array} from 'prop-types'
 import {useForm, Controller} from 'react-hook-form'
 import {ErrorMessage} from '@hookform/error-message'
 import axios from 'axios'
 
 import UI from '../../core/ui'
+import { WebServiceUrl } from '../../core/enums/constants'
 import {
   Wrapper, FieldWrapper, FieldLabel, Field, ErrorLabel, Form, ActionWrapper,
 } from './views'
 
-const Fields = ({content, actions, currentLanguageId}) => {
+const Fields = ({
+  serviceName, content, actions, currentLanguageId, defaultValue
+}) => {
   const [uploadParam, setUploadParam] = useState('');
-  const { handleSubmit, control, formState: {errors}} = useForm();
+  const { reset, handleSubmit, control, formState: {errors}} = useForm()
   const [response, setResponse] = useState('')
 
   const shouldRenderActions = Array.isArray(actions) && actions.length > 0
+  
+  useEffect (() => {
+    reset(defaultValue) 
+  }, [reset, defaultValue])
 
   const onSubmitHandler = useCallback(async data => {
-    const url = 'http://localhost:8080/sample-upload'
+    const url = WebServiceUrl + serviceName
     let body, headers
 
     if (uploadParam) {
-      headers = {'Content-Type': 'multipart/form-data'},
-      body = new FormData();
-      const files = data[uploadParam]
+      headers = {'Content-Type': 'multipart/form-data'}
+      body = new FormData()
+
+      const files = []
+      const imageUrls = []
+
+      for (let i = 0; i < data[uploadParam]?.length; i++) {
+        const {file, type} = data[uploadParam][i]
+        if (type === 'image') {
+          files.push(file)
+        }
+        if (type === 'url') {
+          imageUrls.push(file)
+        }
+      }
+
       files.forEach(file => {
         body.append(uploadParam, file);
       })
+
+      body.append('remain-urls', imageUrls)
+
       Object.entries(data).forEach(([key, value])=> {
         if (key !== uploadParam) {
           body.append(key, value)
@@ -38,7 +61,7 @@ const Fields = ({content, actions, currentLanguageId}) => {
     const res = await axios.post(url, body, {headers})
     setResponse(res.data) 
 
-  }, [uploadParam, currentLanguageId])
+  }, [uploadParam, currentLanguageId, serviceName])
 
   return content.length > 0 && (
     <Wrapper>
@@ -103,6 +126,12 @@ Fields.propTypes = {
   currentLanguageId: string.isRequired,
   content: array.isRequired,
   actions: array.isRequired,
+  serviceName: string.isRequired,
+  defaultValue: object,
+}
+
+Fields.defaultProps = {
+  defaultValue: null
 }
 
 export default Fields

@@ -7,11 +7,12 @@ const IconWrapper = styled.span.attrs(() => ({
   top: 50%;
   transform: translate(0%, -50%);
   display: flex;
-  width: 1.5em;
+  width: 16px;
+
   ${
-  ({iconPosition}) => iconPosition === 'right'
-    ? 'left: calc(var(--space-2) / 2);'
-    : 'right: calc(var(--space-2) / 2);'
+  ({iconPosition}) => iconPosition === 'left'
+    ? css`left: var(--space-2)`
+    : css`right: var(--space-2)`
   };
 `
 

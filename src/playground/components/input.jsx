@@ -31,7 +31,6 @@ const InputWrapper = ({id}) => {
         placeholder="Please enter text here"
         value={inputValue}
         onChange={onChangeCb}
-        iconPosition="left"
         icon={Apple}
       />
       <br/>
