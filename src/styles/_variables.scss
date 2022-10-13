@@ -68,4 +68,10 @@
   --space-72: calc(var(--base-space) * 72);
   --space-156: calc(var(--base-space) * 156);
   --space-180: calc(var(--base-space) * 180);
+
+  --shadow-bottom-2: 0px 2px 8px rgba(0, 0, 0, 0.16);
+  --shadow-top-2: 0px -2px 8px rgba(0, 0, 0, 0.16);
+  --shadow-bottom-4: 0px 4px 16px rgba(0, 0, 0, 0.16);
+  --shadow-top-4: 0px -4px 16px rgba(0, 0, 0, 0.16);
+  --shadow-top-8: 0px 8px 16px rgba(0, 0, 0, 0.16);
 }

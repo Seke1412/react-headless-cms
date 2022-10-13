@@ -37,12 +37,12 @@ const PreviewSample = () => {
   return (
     <>
       {samples?.map(sample => {
-        const {title, content, photo} = sample
+        const {id, title, content, photo} = sample
         const photoUrls = photo?.split(',')
         const shouldRenderImages = Array.isArray(photoUrls) && photoUrls.length > 0
 
         return (
-          <PreviewWrapper key={title}>
+          <PreviewWrapper key={id}>
             <ArticleTitle>{title}</ArticleTitle>
             <ArticleContent>{content}</ArticleContent>
             {shouldRenderImages && 
@@ -50,7 +50,12 @@ const PreviewSample = () => {
                 {photoUrls.map(uri => {
                   if (uri) {
                     const url = WebServiceUrl + uri; 
-                    return (<Image src={url} />)
+                    return (
+                      <Image 
+                        key={uri}
+                        src={url}
+                      />
+                    )
                   }
                 })}
               </ImageWrapper>)

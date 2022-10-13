@@ -1,35 +1,49 @@
-import ReactDOM from 'react-dom'
-import {Component} from 'react'
+import React, {memo} from 'react'
+import {bool, any, func} from 'prop-types'
+import {noop} from '../../utils/helpers'
 
-const modalRoot = document.getElementById('modal-root');
+import BaseModal from './base'
 
-export default class BaseModal extends Component {
-  constructor(props) {
-    super(props)
+import {
+  DarkBg,
+  PopupHolder,
+  CloseIcon,
+  ContentWrapper,
+} from './views'
 
-    this.el = document.createElement('div');
-  }
-
-  componentDidMount() {
-    // The portal element is inserted in the DOM tree after
-    // the Modal's children are mounted, meaning that children
-    // will be mounted on a detached DOM node. If a child
-    // component requires to be attached to the DOM tree
-    // immediately when mounted, for example to measure a
-    // DOM node, or uses 'autoFocus' in a descendant, add
-    // state to Modal and only render the children when Modal
-    // is inserted in the DOM tree.
-    modalRoot.appendChild(this.el);
-  }
-
-  componentWillUnmount() {
-    modalRoot.removeChild(this.el);
-  }
-
-  render() {
-    return ReactDOM.createPortal(
-      this.props.children,
-      this.el
-    );
-  }
+const Modal = ({
+  onCloseClick,
+  isOpen,
+  children,
+}) => {
+  return (
+    <BaseModal>
+      <PopupHolder
+        isOpen={isOpen}
+      >
+        <CloseIcon 
+          onClick={onCloseClick} 
+        />
+        <ContentWrapper>
+          {children}
+        </ContentWrapper>
+      </PopupHolder>
+      <DarkBg 
+        isOpen={isOpen}
+        onClick={onCloseClick}
+      />
+    </BaseModal>
+  )
 }
+
+Modal.propTypes = {
+  isOpen: bool,
+  onCloseClick: func,
+  children: any,
+}
+
+Modal.defaultProps = {
+  onCloseClick: noop,
+}
+
+export default memo(Modal)

@@ -21,14 +21,22 @@ const UploadHolder = styled.div.attrs(() => ({
 const FileItem = styled.li.attrs(() => ({
   className: 'upload-file-item'
 }))`
+  cursor: pointer;
   font-family: var(--font-family);
   color: var(--secondary);
   width: calc(100% - 10px);
+  min-width: 100px;
+  max-width: var(--smallest);
   padding: 0px 5px;
+  aspect-ratio: 1/1;
   height: auto;
-  min-height: 30px;
+  max-height: var(--smallest);
+  min-height: 100px;
   display: flex;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.1);
 
   ${({isImage}) => isImage && css`
     position: relative;
@@ -53,15 +61,22 @@ const FilesHolder = styled.div.attrs(() => ({
   width: 100%;
   height: auto;
   display: flex;
-  gap: var(--space-2);
+  gap: var(--space-4);
   margin-top: var(--space-4);
+  flex-wrap: wrap;
 `
 
 const FileImage = styled.img.attrs(() => ({
   className: 'upload-image'
 }))`
-  width: 100%;
-  max-width: var(--smallest);
+  width: auto;
+  height: 100%;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   display: flex;
   margin: 0px;
   padding: 0px;

@@ -1,9 +1,10 @@
 import React, {useEffect, useState, useCallback} from 'react'
-import {object, string, array} from 'prop-types'
+import {func, object, string, array} from 'prop-types'
 import {useForm, Controller} from 'react-hook-form'
 import {ErrorMessage} from '@hookform/error-message'
 import axios from 'axios'
 
+import {noop} from '../../core/utils/helpers'
 import UI from '../../core/ui'
 import { WebServiceUrl } from '../../core/enums/constants'
 import {
@@ -11,10 +12,10 @@ import {
 } from './views'
 
 const Fields = ({
-  serviceName, content, actions, currentLanguageId, defaultValue
+  serviceName, content, actions, currentLanguageId, defaultValue, onImageClick,
 }) => {
   const [uploadParam, setUploadParam] = useState('');
-  const { reset, handleSubmit, control, formState: {errors}} = useForm()
+  const { reset, handleSubmit, control, setError, formState: {errors}} = useForm()
   const [response, setResponse] = useState('')
 
   const shouldRenderActions = Array.isArray(actions) && actions.length > 0
@@ -84,6 +85,8 @@ const Fields = ({
                       className={name}
                       onChange={onChange}
                       onBlur={onBlur}
+                      onErrorMessage={(message) => setError(fieldName, {type: 'load-error', message})}
+                      onImageClick={onImageClick}
                       {...fieldProps}
                       value={value}
                     />
@@ -127,10 +130,12 @@ Fields.propTypes = {
   content: array.isRequired,
   actions: array.isRequired,
   serviceName: string.isRequired,
+  onImageClick: func,
   defaultValue: object,
 }
 
 Fields.defaultProps = {
+  onImageClick: noop,
   defaultValue: null
 }
 

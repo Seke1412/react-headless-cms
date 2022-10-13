@@ -21,6 +21,7 @@ const UploadFile = ({
   limitSizeInKB,
   onErrorMessage,
   onChange,
+  onImageClick,
   label,
   customStyle,
   name,
@@ -55,21 +56,31 @@ const UploadFile = ({
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
       const {size, type, name} = file
+      const sameFileName = previewFiles.some(f => f.originalName === name);
+      let errorMessage = '';
+
+      if (sameFileName) {
+        errorMessage = `File ${name} already existed, please remove or rename!`;
+      }
+
       if (size > limitSize){
-        const message =  `File ${name} size must smaller than ${limitSizeInKB} KB!`;
-        onErrorMessage(message)
+        errorMessage = `File ${name} size must smaller than ${limitSizeInKB} KB!`;
+      }
+
+      if (errorMessage) {
+        onErrorMessage(errorMessage);
         return
       }
 
       const isImage = type.includes('image/')
-      const index = 'file-' + i
+      const index = name.replaceAll(/\s/ig, '-');
 
       if (isImage) {
         const fileReader = new FileReader();
         fileReader.readAsDataURL(file);
         fileReader.onload = e => {
           const result = e.target.result
-          const previewData = {uri: result, type: 'image', file, index}
+          const previewData = {uri: result, type: 'image', file, index, originalName: name}
           previewLoaded.push(previewData)
 
           if (previewLoaded.length === files.length) {
@@ -96,6 +107,7 @@ const UploadFile = ({
         case 'url':
           return (
             <FileItem
+              onClick={() => onImageClick(uri)}
               isImage
               key={index}
             >
@@ -156,6 +168,7 @@ UploadFile.propTypes = {
   accept: string,
   limitSizeInKB: number,
   onErrorMessage: func,
+  onImageClick: func,
   disabled: bool,
   value: any,
   multiple: string,
@@ -164,6 +177,7 @@ UploadFile.propTypes = {
 UploadFile.defaultProps = {
   onErrorMessage: noop,
   onChange: noop,
+  onImageClick: noop,
   label: '',
   limitSizeInKB: 2048,
   disabled: false,

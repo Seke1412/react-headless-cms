@@ -116,6 +116,16 @@ const BackText = styled.span.attrs(() => ({
   font-weight: bolder;
 `
 
+const PreviewImage = styled.img.attrs(() => ({
+  className: 'preview-image'
+}))`
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0px;
+  padding: 0px;
+`
+
 export {
   ContentWrapper,
   Title,
@@ -128,4 +138,5 @@ export {
   ErrorLabel,
   BackWrapper,
   BackText,
+  PreviewImage,
 }
