@@ -5,12 +5,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import Layout from '../../layout'
 import Table from '../../core/ui/table'
 import Button from '../../core/ui/button'
+import Modal from '../../core/ui/modals';
 
 import {WebServiceUrl} from '../../core/enums/constants'
 
 import {
   ContentWrapper, Title,
-  Content, ActionWrapper, ActionButton, TableHead
+  Content, ActionWrapper, ActionButton, TableHead,
+  ModalContent, ModalMessage, ModalActions,
 } from './views'
 
 
@@ -28,6 +30,9 @@ const ButtonStyle = {
 
 const SampleList = () => {
   const [samples, setSamples] = useState([])
+  const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [selectedSample, setSelectSample] = useState();
   const navigate = useNavigate()
 
   const onActionClick = useCallback((e, action) => {
@@ -78,9 +83,37 @@ const SampleList = () => {
         case 'edit':
           navigate('edit/' + row.id)
           return;
+        case 'delete':
+          setSelectSample(row);
+          setIsVisible(true);
+          break;
       }
     }
   }, [navigate])
+
+  const onDeleteSample = async () => {
+    if (loading) return;
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    }
+    const url = WebServiceUrl + 'sample/' + selectedSample.id
+    try {
+      setLoading(true);
+      const res = await axios.delete(url, requestOptions);
+      const { status } = res;
+      if (status === 200) {
+        
+      }
+      console.log(res);
+      setIsVisible(false);
+    } catch(e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
     let isCancel = false
@@ -129,6 +162,27 @@ const SampleList = () => {
           />
         </Content>
       </ContentWrapper>
+      <Modal
+        isOpen={isVisible}
+        onCloseClick={() => setIsVisible(false)}
+      >
+        <ModalContent>
+          <ModalMessage>Are you sure want to delete: <b>{selectedSample?.title}</b>?</ModalMessage>
+          <ModalActions>
+            <Button
+              className="cancel-button"
+              buttonType="cancel"
+              onClick={() => setIsVisible(false)}
+              label="Cancel"
+            />
+            <Button
+              className="confirm-button"
+              onClick={onDeleteSample}
+              label="Confirm"
+            />
+          </ModalActions>
+        </ModalContent>
+      </Modal>
     </Layout>
   )
 }

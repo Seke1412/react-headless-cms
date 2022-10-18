@@ -25,7 +25,7 @@
       "label": "Article images",
       "fieldName": "files",
       "fieldProps": {
-        "label": "Upload files",
+        "label": "Drag'n'Drop / click to upload",
         "limitSizeInKB": 3000,
         "accept": "image/*",
         "multiple": "multiple",

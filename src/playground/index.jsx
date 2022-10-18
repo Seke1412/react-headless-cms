@@ -7,6 +7,7 @@ import Pagination from './components/pagination'
 import Tabs from './components/tabs'
 import Button from './components/button'
 import UploadFile from './components/upload-file'
+import ImageUploader from './components/image-uploader'
 
 import './styles.scss'
 
@@ -17,7 +18,8 @@ const SupportedComponent = [
   'textarea',
   'tabs',
   'button',
-  'upload-file'
+  'upload-file',
+  'image-uploader',
 ]
 
 const Playground = () => {
@@ -31,6 +33,8 @@ const Playground = () => {
         options={SupportedComponent}
         onSearchResult={onSearch}
       />
+      <ImageUploader id="image-uploader" />
+      <br />
       <UploadFile id="upload-file" />
       <br />
       <Button id="button" />

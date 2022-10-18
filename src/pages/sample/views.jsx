@@ -77,6 +77,37 @@ const ActionWrapper = styled.span.attrs(() => ({
   gap: var(--space-2);
 `
 
+const ModalContent = styled.div.attrs(() => ({
+  className: 'modals-content'
+}))`
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-4);
+`
+
+const ModalMessage = styled.p.attrs(() => ({
+  className: 'modals-message'
+}))`
+  font-size: var(--fs-label);
+  font-family: var(--font-family);
+  line-height: var(--title-min-height);
+
+  margin-top: var(--space-2);
+`
+
+const ModalActions = styled.div.attrs(() => ({
+  className: 'modals-action-wrapper'
+}))`
+  display: flex;
+  width: auto;
+  max-width: var(--max-mobile-width);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  justify-self: flex-end;
+  gap: var(--space-2);
+`
+
 export {
   ContentWrapper,
   Title,
@@ -84,4 +115,7 @@ export {
   TableHead,
   ActionButton,
   ActionWrapper,
+  ModalContent,
+  ModalMessage,
+  ModalActions,
 }

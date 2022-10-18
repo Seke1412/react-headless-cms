@@ -1,49 +1,85 @@
 import styled, {css} from 'styled-components'
-import {ClipIcon, DeleteIcon, UploadIcon} from '../../../svg'
+import {DeleteIcon, UploadIcon} from '../../../svg'
 import Animation from '../animation'
 
-const UploadHolder = styled.div.attrs(() => ({
-  className: 'upload-holder'
+const ImageUploader = styled.div.attrs(() => ({
+  className: 'uploader-holder'
 }))`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  width: 640px;
+  height: 480px;
+
+  background-color: white;
+  overflow: auto;
+
+  border: 0px solid transparent;
+  border-radius: var(--border-radius);
 
   ${({disabled}) => disabled && css`
     background-color: transparent;
     cursor: not-allowed;
   `}
+  
+  box-shadow: var(--shadow-bottom-2);
 
   ${({customStyle}) => customStyle && css(customStyle)};
+`;
+
+
+const ContentHolder = styled.div.attrs(() => ({
+  className: 'content-holder'
+}))`
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+`
+
+const PreviewHolder = styled.div.attrs(() => ({
+  className: 'preview-holder'
+}))`
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+  background-color: white;
+`
+
+const FilesHolder = styled.div.attrs(() => ({
+  className: 'file-holder'
+}))`
+  width: 100%;
+  height: auto;
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+
+  overflow: auto;
 `
 
 const FileItem = styled.li.attrs(() => ({
   className: 'upload-file-item'
 }))`
+  position: relative;
   cursor: pointer;
   font-family: var(--font-family);
   color: var(--secondary);
-  width: calc(100% - 10px);
-  min-width: 100px;
-  max-width: var(--smallest);
-  padding: 0px 5px;
-  aspect-ratio: 1/1;
+  width: 100%;
+
   height: auto;
   max-height: var(--smallest);
   min-height: 100px;
   display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.1);
-
-  ${({isImage}) => isImage && css`
-    position: relative;
-    width: auto;
-    height: fit-content;
-    padding: 0px;
-  `};
+  flex-direction: row;
+  justify-content: flex-start;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
 
   :hover {
     transition: all 0.3s ease-out;
@@ -55,45 +91,47 @@ const FileItem = styled.li.attrs(() => ({
   }
 `
 
-const FilesHolder = styled.div.attrs(() => ({
-  className: 'file-holder'
+const FileFields = styled.div.attrs(() => ({
+  className: 'file-fields'
 }))`
-  width: 100%;
-  height: auto;
+  margin: var(--space-2) 0px;
+  width: calc(100% - 200px);
+  margin-left: var(--space-4);
   display: flex;
-  gap: var(--space-4);
-  margin-top: var(--space-4);
   flex-wrap: wrap;
+  gap: var(--space-4);
 `
 
-const FileImage = styled.img.attrs(() => ({
-  className: 'upload-image'
+const FileImage = styled.div.attrs(() => ({
+  className: 'file-image'
 }))`
+  position: relative;
   width: auto;
   height: 100%;
-
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
+  aspect-ratio: 1/1;
+  
+  border: 1px solid var(--primary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
   display: flex;
   margin: 0px;
   padding: 0px;
 `
 
-const StyledClipIcon = styled(ClipIcon).attrs(() => ({
-  className: 'clip-icon'
-}))`
-  width: 16px;
-`
 
-const FileName = styled.span.attrs(() => ({
-  className: 'file-name'
+const Image = styled.img.attrs(() => ({
+  className: 'image'
 }))`
-  flex: 1 1 0;
-  padding: 0px 10px;
-  line-height: 16px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: 100%;
+
+  display: flex;
+  margin: 0px;
+  padding: 0px;
 `
 
 const StyledDeleteIcon = styled(DeleteIcon).attrs(() => ({
@@ -122,16 +160,20 @@ const StyledDeleteIcon = styled(DeleteIcon).attrs(() => ({
 const ButtonWrapper = styled.div.attrs(() => ({
   className: 'upload-button'
 }))`
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   display: flex;
   align-items: center;
-  width: auto;
+  width: 240px;
+  height: 120px;
+
   padding: 0px 16px;
-  min-width: 120px; 
-  height: 40px;
   max-width: var(--double-smallest);
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-evenly;
 
 
   box-sizing: border-box;
@@ -140,6 +182,16 @@ const ButtonWrapper = styled.div.attrs(() => ({
   background-color: rgb(238, 240, 242);
   cursor: pointer;
   transition: all 0.3s ease-out;
+
+  ${({haveFiles}) => haveFiles && css`
+    flex-direction: row;
+    transform: none;
+    top: auto;
+    left: auto;
+    bottom: var(--base-space);
+    right: var(--base-space);
+    height: 40px;
+  `}
 
   :hover {
     transition: all 0.3s ease-out;
@@ -198,7 +250,17 @@ const StyledUploadIcon = styled(UploadIcon).attrs(() => ({
 }))`
   width: 20px;
   color: var(--text-color);
-  margin-left: var(--space-3);
+`
+
+const Prior = styled.span.attrs(() => ({
+  className: 'prior-text'
+}))`
+  position: absolute;
+  right: var(--space-4);
+  top: 40px;
+  font-family: var(--font-family);
+  font-size: var(--fs-default);
+  color: var(--text-color);
 `
 
 const LoadingIcon = styled.span`
@@ -211,16 +273,19 @@ const LoadingIcon = styled.span`
 `
 
 export {
-  UploadHolder,
+  ImageUploader,
+  ContentHolder,
+  PreviewHolder,
   ButtonWrapper,
   UploadInput,
   Label,
   StyledUploadIcon,
-  StyledClipIcon,
-  FileName,
   StyledDeleteIcon,
   FilesHolder,
   FileItem,
+  FileFields,
   FileImage,
+  Image,
+  Prior,
   LoadingIcon
 }

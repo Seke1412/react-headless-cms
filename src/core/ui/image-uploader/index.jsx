@@ -1,23 +1,34 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react'
 import {number, func, string, object, bool, any} from 'prop-types'
+import Input from '../input'
 import {noop} from '../../utils/helpers'
 
 import {
-  UploadHolder,
+  ImageUploader,
+  ContentHolder,
+  PreviewHolder,
+
   ButtonWrapper,
   UploadInput,
   Label,
   StyledUploadIcon,
-  StyledClipIcon,
-  FileName,
   StyledDeleteIcon,
   FileItem,
   FileImage,
+  FileFields,
+  Image,
+  Prior,
   FilesHolder,
   LoadingIcon
 } from './views'
 
-const UploadFile = ({
+
+const InputCustomStyle = {
+  width: 'calc(50% - 10px)',
+  'max-width': '240px',
+}
+
+const Uploader = ({
   limitSizeInKB,
   onErrorMessage,
   onChange,
@@ -35,12 +46,19 @@ const UploadFile = ({
   const [loading, setLoading] = useState(false)
   const [previewFiles, setPreviewFiles] = useState([])
   const [buttonClass, setButtonClass] = useState('');
+  const [previewUri, setPreviewUri] = useState();
+  const [dragId, setDragId] = useState();
 
   useEffect(() => {
     if (value?.length > 0 && value?.length !== previewFiles.length) {
-      setPreviewFiles(value)
+      const indexedArray = value.map((item, index) => {
+        item.originalOrder = index
+        return item;
+      })
+      setPreviewFiles(indexedArray)
     }
   }, [value, previewFiles])
+
 
   const onChangeFile = (e) => {
     onErrorMessage(null)
@@ -81,7 +99,14 @@ const UploadFile = ({
         fileReader.readAsDataURL(file);
         fileReader.onload = e => {
           const result = e.target.result
-          const previewData = {uri: result, type: 'image', file, index, originalName: name}
+          const previewData = {
+            uri: result,
+            type: 'image',
+            file,
+            index,
+            originalName: name,
+            originalOrder: i,
+          }
           previewLoaded.push(previewData)
 
           if (previewLoaded.length === files.length) {
@@ -99,39 +124,73 @@ const UploadFile = ({
     onChange(newState)
   }
 
-  const renderPreviewFiles = () => {
-    return previewFiles?.map((fileDataOrName) => {
-      const {uri, name, type, index} = fileDataOrName
+  const startDrag = (e) => {
+    const itemId = e.target.dataset.itemId;
+    setDragId(itemId);
+  }
 
+  const dragOver = (e) => {
+    e.preventDefault();
+  }
+
+  const drop = (e) => {
+    const itemId = e.currentTarget.dataset.itemId
+    console.log('drag: ', dragId)
+    console.log('drop: ', itemId)
+  }
+
+  const renderPreviewFiles = () => {
+    return previewFiles?.map((fileData) => {
+      const {uri, type, index, originalOrder, order} = fileData
       switch (type) {
         case 'image':
         case 'url':
           return (
             <FileItem
+              data-item-id={originalOrder}
+              draggable
+              onDragStart={startDrag}
+              onDragOver={dragOver}
+              onDrop={drop}
               isImage
               key={index}
             >
-              <FileImage 
-                onClick={() => onImageClick(uri)}
-                src={uri} 
-              />
+              <FileImage>
+                <Image 
+                  onClick={() => onImageItemClick(uri)}
+                  src={uri} 
+                />
+              </FileImage>
+              <FileFields>
+                <Input
+                  placeholder="file name"
+                  customStyle={InputCustomStyle}
+                />
+                <Input
+                  placeholder="description"
+                  customStyle={InputCustomStyle}
+                />
+                <Input
+                  placeholder="caption"
+                  customStyle={InputCustomStyle}
+                />
+              </FileFields>
               <StyledDeleteIcon
                 isImage
                 onClick={() => onDeleteFileClick(index)}
               />
+              <Prior>
+                {order ?? originalOrder}
+              </Prior>
             </FileItem>
           )
         default:
-          return (
-            <FileItem key={name}>
-              <StyledClipIcon />
-              <FileName>{name}</FileName>
-              <StyledDeleteIcon onClick={() => onDeleteFileClick(index)} />
-            </FileItem>
-          )
+          console.error('image-uploader only accept image type file')
+          break;
       }
     })
   }
+
   const onDragOver = () => {
     setButtonClass('is-dragover');
   };
@@ -140,43 +199,54 @@ const UploadFile = ({
     setButtonClass('');
   };
 
+  const onImageItemClick = (uri) => {
+    setPreviewUri(uri)
+    onImageClick(uri)
+  }
+
   const shouldRenderPreview = value?.length > 0 || previewFiles?.length > 0
 
   return (
-    <UploadHolder
+    <ImageUploader
       disabled={disabled}
       customStyle={customStyle}
     >
-      <ButtonWrapper
-        disabled={disabled}
-        className={buttonClass}
-      >
-        <UploadInput
-          multiple={multiple}
-          name={name}
-          accept={accept}
-          onChange={onChangeFile}
+      <ContentHolder>
+        {shouldRenderPreview
+          ? <FilesHolder>{renderPreviewFiles()}</FilesHolder>
+          : loading && <LoadingIcon />
+        }
+        <ButtonWrapper
           disabled={disabled}
-          onDragOver={onDragOver}
-          onDragEnter={onDragOver}
-          onDragLeave={onDragOut}
-          onDragEnd={onDragOut}
-          onDrop={onDragOut}
-        />
-        <Label>
-          {label}
-        </Label>
-        <StyledUploadIcon />
-      </ButtonWrapper>
-      {shouldRenderPreview
-        ? <FilesHolder>{renderPreviewFiles()}</FilesHolder>
-        : loading && <LoadingIcon />
+          className={buttonClass}
+          haveFiles={previewFiles.length > 0}
+        >
+          <UploadInput
+            multiple={multiple}
+            name={name}
+            accept={accept}
+            onChange={onChangeFile}
+            disabled={disabled}
+            onDragOver={onDragOver}
+            onDragEnter={onDragOver}
+            onDragLeave={onDragOut}
+            onDragEnd={onDragOut}
+            onDrop={onDragOut}
+          />
+          <Label>
+            {label}
+          </Label>
+          <StyledUploadIcon />
+        </ButtonWrapper>
+      </ContentHolder>
+      {previewUri &&
+        <PreviewHolder />
       }
-    </UploadHolder>
+    </ImageUploader>
   )
 };
 
-UploadFile.propTypes = {
+Uploader.propTypes = {
   onChange: func,
   label: string,
   customStyle: object,
@@ -190,7 +260,7 @@ UploadFile.propTypes = {
   multiple: string,
 };
 
-UploadFile.defaultProps = {
+Uploader.defaultProps = {
   onErrorMessage: noop,
   onChange: noop,
   onImageClick: noop,
@@ -202,4 +272,4 @@ UploadFile.defaultProps = {
   multiple: null,
 };
 
-export default UploadFile
+export default Uploader

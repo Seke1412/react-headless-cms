@@ -66,7 +66,9 @@ const Fields = ({
 
   return content.length > 0 && (
     <Wrapper>
-      <Form onSubmit={handleSubmit(onSubmitHandler)}>
+      <Form 
+        onSubmit={handleSubmit(onSubmitHandler)}
+      >
         {content.map(field => {
           const {fieldName, type, label, fieldProps, rules} = field
           const ResultComponent = UI[type]
