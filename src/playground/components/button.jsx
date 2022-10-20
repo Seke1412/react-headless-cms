@@ -8,7 +8,7 @@ import { Code, CodeTitle } from './views'
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   gap: var(--space-4);
 `
 

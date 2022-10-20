@@ -11,7 +11,8 @@ const TabMenu = [
 ]
 
 const CustomStyle = {
-  'background-color': 'white'
+  'background-color': 'white',
+  'justify-content': 'center'
 }
 
 const TabMenuWrapper = ({id}) => {

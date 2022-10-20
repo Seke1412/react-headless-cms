@@ -59,7 +59,6 @@ const FilesHolder = styled.div.attrs(() => ({
   display: flex;
   gap: var(--space-2);
   flex-wrap: wrap;
-
   overflow: auto;
 `
 
@@ -71,6 +70,7 @@ const FileItem = styled.li.attrs(() => ({
   font-family: var(--font-family);
   color: var(--secondary);
   width: 100%;
+  padding: var(--space-2);
 
   height: auto;
   max-height: var(--smallest);
@@ -82,8 +82,6 @@ const FileItem = styled.li.attrs(() => ({
   box-sizing: border-box;
 
   :hover {
-    transition: all 0.3s ease-out;
-    background-color: var(--background-color);
     .delete-icon {
       transition: all 0.3s ease-out;
       opacity: 1
@@ -112,6 +110,8 @@ const FileImage = styled.div.attrs(() => ({
   
   border: 1px solid var(--primary);
   border-radius: var(--border-radius);
+  box-sizing: border-box;
+
   overflow: hidden;
   display: flex;
   margin: 0px;
@@ -167,8 +167,8 @@ const ButtonWrapper = styled.div.attrs(() => ({
 
   display: flex;
   align-items: center;
-  width: 240px;
-  height: 120px;
+  width: 360px;
+  height: 240px;
 
   padding: 0px 16px;
   max-width: var(--double-smallest);
@@ -190,6 +190,7 @@ const ButtonWrapper = styled.div.attrs(() => ({
     left: auto;
     bottom: var(--base-space);
     right: var(--base-space);
+    width: 240px;
     height: 40px;
   `}
 

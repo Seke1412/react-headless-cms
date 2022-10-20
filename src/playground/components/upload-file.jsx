@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 import React, {useState, memo, useCallback} from 'react'
 import { string } from 'prop-types'
 import axios from 'axios'
@@ -8,6 +9,14 @@ import Button from '../../core/ui/button'
 import { WebServiceUrl } from '../../core/enums/constants'
 
 import { Code, CodeTitle } from './views'
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+`
 
 const UploadWrapper = ({id}) => {
   const [toggleCode, setToggleCode] = useState(false)
@@ -70,20 +79,23 @@ const UploadWrapper = ({id}) => {
           value: any<br/>
         <br/>
       </p>
-      <UploadFile
-        label="Upload file"
-        limitSizeInKB={3000}
-        accept="image/*"
-        multiple="multiple"
-        onChange={onFileChange}
-        onErrorMessage={(message) => console.log('upload error: ', message)}
-        value={files}
-      />
-      <Button 
-        label="Submit"
-        onClick={doUpload}
-        customStyle={{margin: 'var(--space-3) 0px'}}
-      />
+      <Wrapper>
+        <UploadFile
+          label="Upload file"
+          limitSizeInKB={3000}
+          accept="image/*"
+          multiple="multiple"
+          onChange={onFileChange}
+          onErrorMessage={(message) => console.log('upload error: ', message)}
+          value={files}
+          customStyle={{width: 'auto', 'max-width': '50%'}}
+        />
+        <Button 
+          label="Submit"
+          onClick={doUpload}
+          customStyle={{margin: 'var(--space-3) 0px'}}
+        />
+      </Wrapper>
       <br/>
       <CodeTitle
         toggleCode={toggleCode}

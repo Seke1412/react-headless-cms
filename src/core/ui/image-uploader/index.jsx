@@ -47,15 +47,12 @@ const Uploader = ({
   const [previewFiles, setPreviewFiles] = useState([])
   const [buttonClass, setButtonClass] = useState('');
   const [previewUri, setPreviewUri] = useState();
-  const [dragId, setDragId] = useState();
+  const [startDragId, setStartDragId] = useState();
 
   useEffect(() => {
-    if (value?.length > 0 && value?.length !== previewFiles.length) {
-      const indexedArray = value.map((item, index) => {
-        item.originalOrder = index
-        return item;
-      })
-      setPreviewFiles(indexedArray)
+    if (Array.isArray(value) && value?.length > 0) {
+      const sortedArray = value.sort((a, b)=> b.originalOrder - a.originalOrder);
+      setPreviewFiles(sortedArray)
     }
   }, [value, previewFiles])
 
@@ -75,7 +72,7 @@ const Uploader = ({
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
       const {size, type, name} = file
-      const sameFileName = previewFiles.some(f => f.originalName === name);
+      const sameFileName = previewFiles?.some(f => f.originalName === name);
       let errorMessage = '';
 
       if (sameFileName) {
@@ -99,13 +96,15 @@ const Uploader = ({
         fileReader.readAsDataURL(file);
         fileReader.onload = e => {
           const result = e.target.result
+          const highest = previewFiles[0]?.originalOrder ?? 0
+          const order = highest + parseInt(i, 10) + 1
           const previewData = {
             uri: result,
             type: 'image',
             file,
             index,
             originalName: name,
-            originalOrder: i,
+            originalOrder: order,
           }
           previewLoaded.push(previewData)
 
@@ -126,7 +125,7 @@ const Uploader = ({
 
   const startDrag = (e) => {
     const itemId = e.target.dataset.itemId;
-    setDragId(itemId);
+    setStartDragId(itemId);
   }
 
   const dragOver = (e) => {
@@ -134,14 +133,34 @@ const Uploader = ({
   }
 
   const drop = (e) => {
-    const itemId = e.currentTarget.dataset.itemId
-    console.log('drag: ', dragId)
-    console.log('drop: ', itemId)
+    const dropId = parseInt(e.currentTarget.dataset.itemId, 10)
+    const dragId = parseInt(startDragId, 10)
+    const indexRange =  dragId - dropId
+    const positiveIndex = indexRange > 0
+
+    const newOrderArray = previewFiles.map(item => {
+      const originalOrder = parseInt(item.originalOrder, 10)
+      if (originalOrder === dragId) {
+        item.originalOrder = dropId;
+      } else {
+        const inBetweenItem = positiveIndex
+          ? originalOrder >= dropId && originalOrder < dragId
+          : originalOrder <= dropId && originalOrder > dragId
+        if (inBetweenItem) {
+          item.originalOrder = positiveIndex ? originalOrder + 1 : originalOrder - 1
+        }
+      }
+
+      return item
+    })
+    const sortedArray = newOrderArray.sort((a, b) => b.originalOrder - a.originalOrder)
+
+    setPreviewFiles(sortedArray)
   }
 
   const renderPreviewFiles = () => {
     return previewFiles?.map((fileData) => {
-      const {uri, type, index, originalOrder, order} = fileData
+      const {uri, type, index, originalOrder} = fileData
       switch (type) {
         case 'image':
         case 'url':
@@ -180,7 +199,7 @@ const Uploader = ({
                 onClick={() => onDeleteFileClick(index)}
               />
               <Prior>
-                {order ?? originalOrder}
+                {originalOrder}
               </Prior>
             </FileItem>
           )
@@ -219,7 +238,7 @@ const Uploader = ({
         <ButtonWrapper
           disabled={disabled}
           className={buttonClass}
-          haveFiles={previewFiles.length > 0}
+          haveFiles={previewFiles?.length > 0}
         >
           <UploadInput
             multiple={multiple}

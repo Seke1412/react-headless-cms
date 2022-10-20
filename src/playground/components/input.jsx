@@ -32,6 +32,7 @@ const InputWrapper = ({id}) => {
         value={inputValue}
         onChange={onChangeCb}
         icon={Apple}
+        customStyle={{margin: '0px auto'}}
       />
       <br/>
       <CodeTitle

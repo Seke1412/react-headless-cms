@@ -153,6 +153,7 @@ const TableWrapper = ({id}) => {
         columns={Columns}
         dataSource={DataSource}
         onRowClick={onRowClick}
+        customStyle={{margin: '0px auto'}}
       />
       <p>
         You&#39;ve selected:
@@ -184,6 +185,7 @@ const TableWrapper = ({id}) => {
         columns={ColumnRender}
         dataSource={DataRender}
         onRowClick={onRowRPClick}
+        customStyle={{margin: '0px auto'}}
       />
       <p>
         You&#39;ve selected:

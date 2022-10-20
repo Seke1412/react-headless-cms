@@ -33,6 +33,7 @@ const TAWrapper = ({id}) => {
         allowResize
         value={textareaValue}
         onChange={onChangeCb}
+        customStyle={{margin: '0px auto'}}
       />
       <br/>
       <CodeTitle
