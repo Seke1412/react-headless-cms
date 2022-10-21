@@ -154,7 +154,7 @@ const Uploader = ({
       return item
     })
     const sortedArray = newOrderArray.sort((a, b) => b.originalOrder - a.originalOrder)
-
+    setStartDragId()
     setPreviewFiles(sortedArray)
   }
 
