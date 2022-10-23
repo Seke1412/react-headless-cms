@@ -8,6 +8,7 @@ import Tabs from './components/tabs'
 import Button from './components/button'
 import UploadFile from './components/upload-file'
 import ImageUploader from './components/image-uploader'
+import ImageUploaderAdvance from './components/image-uploader-advance'
 
 import './styles.scss'
 
@@ -20,6 +21,7 @@ const SupportedComponent = [
   'button',
   'upload-file',
   'image-uploader',
+  'image-uploader-advance',
 ]
 
 const Playground = () => {
@@ -33,6 +35,8 @@ const Playground = () => {
         options={SupportedComponent}
         onSearchResult={onSearch}
       />
+      <ImageUploaderAdvance id="image-uploader-advance" />
+      <br />
       <ImageUploader id="image-uploader" />
       <br />
       <UploadFile id="upload-file" />

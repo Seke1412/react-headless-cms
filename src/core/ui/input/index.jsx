@@ -1,11 +1,12 @@
 import React from 'react'
-import { object, string, func, any, oneOf } from 'prop-types'
+import { bool, object, string, func, any, oneOf } from 'prop-types'
 
 import {noop} from '../../utils/helpers'
 import { IconWrapper, InputWrapper, StyledInput} from './views'
 
 const Input = ({
   className,
+  disabled,
   value, placeholder, onFocus,
   onBlur, onChange, defaultValue,
   icon, iconPosition,
@@ -31,6 +32,7 @@ const Input = ({
     <InputWrapper
       className={className}
       customStyle={customStyle}
+      disabled={disabled}
     >
       <StyledInput
         hasIcon={icon}
@@ -50,6 +52,7 @@ const Input = ({
 
 Input.propTypes = {
   className: string,
+  disabled: bool,
   value: string,
   placeholder: string,
   onFocus: func,
@@ -63,6 +66,7 @@ Input.propTypes = {
 
 Input.defaultProps = {
   className: '',
+  disabled: false,
   value: '',
   placeholder: '',
   onFocus: noop,

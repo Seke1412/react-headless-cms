@@ -8,7 +8,6 @@ const IconWrapper = styled.span.attrs(() => ({
   transform: translate(0%, -50%);
   display: flex;
   width: 16px;
-
   ${
   ({iconPosition}) => iconPosition === 'left'
     ? css`left: var(--space-2)`
@@ -22,6 +21,11 @@ const InputWrapper = styled.div.attrs(() => ({
   position: relative;
   width: var(--max-mobile-width);
   height: 40px;
+
+  ${({disabled}) => disabled && css`
+    pointer-events: none;
+    user-select: none;
+  `}
 
   ${({customStyle}) => customStyle && css(customStyle)};
 `
