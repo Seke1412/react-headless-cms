@@ -56,7 +56,17 @@ const Uploader = ({
   const [previewUri, setPreviewUri] = useState()
   const [isMouseDown, setIsMouseDown] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
+  const [scrollToPos, setScrollToPos] = useState(0)
   const holderRef = useRef()
+  
+  useEffect(() => {
+    holderRef?.current?.scrollTo({
+      top: scrollToPos,
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest'
+    })
+  }, [scrollToPos])
 
   useEffect(() => {
     if (Array.isArray(value) && value?.length > 0) {
@@ -207,7 +217,7 @@ const Uploader = ({
     if (dragRef.current) {
       const dragId = parseInt(dragRef.current.dataset.itemId, 10)
       let dropId
-
+      let scrollPos = 0
       itemArray.current.forEach(item => {
         const currentId = item.itemId
         const top = item.initPos.y
@@ -217,13 +227,18 @@ const Uploader = ({
         item.reset()
         if (Math.abs(e.clientY - centerY) <= height/2 && currentId !== dragId) {
           dropId = parseInt(currentId, 10)
+          scrollPos = holderRef.current.scrollTop + (height * (dragId - dropId))
         }
+
       })
       if (dropId) {
         calculatePos(dragId, dropId)
       }
+
       parentRef.current.append(dragRef.current)
+      setScrollToPos(scrollPos)
     }
+
 
     dragRef.current.classList.remove('dragging')
     dragRef.current.style.left = 'auto'
